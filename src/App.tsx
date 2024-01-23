@@ -1,4 +1,5 @@
 import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
 
 function App() {
   return (
@@ -6,6 +7,7 @@ function App() {
       <div className="bg-gray-950 p-4 w-2/5">
         <h1 className="text-3xl font-bold text-center block my-2">Tasks</h1>
         <TaskForm />
+        <TaskList />
       </div>
     </div>
   );
