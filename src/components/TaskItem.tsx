@@ -1,5 +1,6 @@
 import { useTasks } from "../context/useTasks";
 import { Task } from "../models/Task";
+import { IoCheckmarkDone, IoTrash } from "react-icons/io5";
 
 interface Props {
   task: Task
@@ -15,20 +16,21 @@ function TaskItem({ task }: Props) {
         <p>{task.description}</p>
       </div>
       <div className="flex gap-x-2">
-      <button onClick={async () => {
-          await updateTask(task._id, {
-            done: !task.done
-          }) 
-        }}>
-          { task.done ? 'undone' : 'done' }
-        </button>
-        <button onClick={async () => {
-          if (window.confirm('Are you sure you want to delete this task?')){
-            await deleteTask(task._id) 
-          }
-        }}>
-          D
-        </button>
+        <IoCheckmarkDone
+          onClick={async () => {
+            await updateTask(task._id, {
+              done: !task.done
+            }) 
+          }}
+          className={task.done ? "text-green-500" : "text-gray-500"}
+        />
+        <IoTrash
+          onClick={async () => {
+            if (window.confirm('Are you sure you want to delete this task?')){
+              await deleteTask(task._id) 
+            }
+          }}
+        />
       </div>
     </div>
   );
