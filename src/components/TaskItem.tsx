@@ -6,7 +6,7 @@ interface Props {
 }
 function TaskItem({ task }: Props) {
 
-  const { deleteTask } = useTasks()
+  const { deleteTask, updateTask } = useTasks()
 
   return (
     <div key={task._id} className="bg-gray-900 p-2 my-2 flex justify-between hover:bg-gray-800 hover:cursor-pointer">
@@ -15,12 +15,20 @@ function TaskItem({ task }: Props) {
         <p>{task.description}</p>
       </div>
       <div className="flex gap-x-2">
-        <button>U</button>
+      <button onClick={async () => {
+          await updateTask(task._id, {
+            done: !task.done
+          }) 
+        }}>
+          { task.done ? 'undone' : 'done' }
+        </button>
         <button onClick={async () => {
           if (window.confirm('Are you sure you want to delete this task?')){
             await deleteTask(task._id) 
           }
-        }}>D</button>
+        }}>
+          D
+        </button>
       </div>
     </div>
   );
