@@ -1,13 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useTasks } from "../context/useTasks";
 
 function TaskForm() {
-
+  const { createTask } = useTasks()
+  
   const [task, setTask] = useState({
     title: '',
     description: '',
     done: false
   })
-
+  
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setTask({ ...task, [e.target.name]: e.target.value })
   }
@@ -16,9 +18,9 @@ function TaskForm() {
     setTask({ ...task, [e.target.name]: e.target.checked })
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(task)
+    await createTask(task)
   }
 
   return (
